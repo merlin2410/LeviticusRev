@@ -2,7 +2,7 @@
 <html lang="ml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ലേവ്യഗ്രന്ഥം - അഡ്വാൻസ്ഡ് ക്വിസ് പഠനസഹായി</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -12,15 +12,19 @@
             font-family: 'Noto Sans Malayalam', sans-serif;
             background-color: #f8fafc;
         }
+        /* Mobile friendly reveal answer */
         .reveal-answer {
             background-color: #1e293b;
-            color: #1e293b;
-            transition: color 0.3s ease;
+            color: transparent;
+            transition: all 0.3s ease;
             cursor: pointer;
             border-bottom: 2px dashed #94a3b8;
+            user-select: none; /* Prevents text selection on accidental double tap */
+            -webkit-tap-highlight-color: transparent; /* Removes default mobile tap highlight */
         }
-        .reveal-answer:hover {
-            color: #f1f5f9;
+        .reveal-answer:hover, .reveal-answer.revealed {
+            color: #fde047; /* Tailwind yellow-300 */
+            text-shadow: none;
         }
         .section-header {
             background: linear-gradient(90deg, #7f1d1d 0%, #b91c1c 100%);
@@ -32,58 +36,60 @@
         }
     </style>
 </head>
-<body class="text-gray-800 antialiased p-4 md:p-8">
+<body class="text-gray-800 antialiased p-3 sm:p-4 md:p-8">
 
-    <div class="max-w-7xl mx-auto space-y-8">
+    <div class="max-w-7xl mx-auto space-y-6 sm:space-y-8">
         
         <!-- Header -->
-        <header class="bg-red-900 text-white p-8 md:p-12 rounded-3xl shadow-2xl text-center relative overflow-hidden">
+        <header class="bg-red-900 text-white p-6 sm:p-8 md:p-12 rounded-3xl shadow-2xl text-center relative overflow-hidden">
             <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: url('https://www.transparenttextures.com/patterns/stardust.png');"></div>
             <div class="relative z-10">
-                <span class="bg-red-800 text-red-100 px-4 py-1 rounded-full text-sm font-bold tracking-widest uppercase mb-4 inline-block shadow-inner">Advanced Level / Priests' Edition</span>
-                <h1 class="text-3xl md:text-6xl font-extrabold mb-4 drop-shadow-xl"><i class="fas fa-scroll mr-4"></i>ലേവ്യഗ്രന്ഥം (Leviticus)</h1>
-                <p class="text-xl md:text-2xl text-red-200 font-medium">മെഗാ ബൈബിൾ ക്വിസ് പഠനസഹായി (POC Version)</p>
-                <div class="mt-8 flex justify-center gap-4 flex-wrap">
-                    <span class="bg-white text-red-900 px-6 py-2 rounded-full font-bold shadow-lg flex items-center"><i class="fas fa-key mr-2"></i>പ്രമേയം: വിശുദ്ധി</span>
-                    <span class="bg-white text-red-900 px-6 py-2 rounded-full font-bold shadow-lg flex items-center"><i class="fas fa-book-open mr-2"></i>അധ്യായങ്ങൾ: 27</span>
+                <span class="bg-red-800 text-red-100 px-3 py-1 rounded-full text-xs sm:text-sm font-bold tracking-widest uppercase mb-4 inline-block shadow-inner">Advanced Level / Priests' Edition</span>
+                <h1 class="text-2xl sm:text-4xl md:text-6xl font-extrabold mb-3 drop-shadow-xl flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
+                    <i class="fas fa-scroll"></i> ലേവ്യഗ്രന്ഥം
+                </h1>
+                <p class="text-lg sm:text-xl md:text-2xl text-red-200 font-medium">മെഗാ ബൈബിൾ ക്വിസ് പഠനസഹായി (POC Version)</p>
+                <div class="mt-6 flex justify-center gap-3 flex-wrap text-sm sm:text-base">
+                    <span class="bg-white text-red-900 px-4 py-2 rounded-full font-bold shadow-lg flex items-center"><i class="fas fa-key mr-2"></i>പ്രമേയം: വിശുദ്ധി</span>
+                    <span class="bg-white text-red-900 px-4 py-2 rounded-full font-bold shadow-lg flex items-center"><i class="fas fa-book-open mr-2"></i>അധ്യായങ്ങൾ: 27</span>
                 </div>
             </div>
         </header>
 
         <!-- Deep Dive Grid 1 -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
 
             <!-- Section 1: Priestly Consecration & Rules -->
-            <section class="bg-white p-6 md:p-8 rounded-2xl shadow-xl card hover:shadow-2xl transition-shadow duration-300">
-                <h2 class="text-2xl font-bold mb-6 section-header border-b pb-2"><i class="fas fa-menorah mr-2"></i>പുരോഹിത നിയമങ്ങളും അനുഷ്ഠാനങ്ങളും</h2>
-                <ul class="space-y-4 text-gray-700">
-                    <li class="flex items-start"><i class="fas fa-fire-flame-curved text-red-700 mt-1 mr-3"></i> <div><strong>ബലികളിലെ വിലക്കുകൾ (ലേവ്യ 2:11):</strong> പുളിമാവോ (Leaven) തേനോ (Honey) ദഹനബലിയായി അർപ്പിക്കരുത്.</div></li>
-                    <li class="flex items-start"><i class="fas fa-cube text-red-700 mt-1 mr-3"></i> <div><strong>ഉടമ്പടിയുടെ ഉപ്പ് (ലേവ്യ 2:13):</strong> എല്ലാ ധാന്യബലികളിലും ദൈവവുമായുള്ള ഉടമ്പടിയുടെ അടയാളമായ 'ഉപ്പ്' നിർബന്ധമായും ചേർക്കണം.</div></li>
-                    <li class="flex items-start"><i class="fas fa-tint text-red-700 mt-1 mr-3"></i> <div><strong>പുരോഹിത അഭിഷേകം (ലേവ്യ 8:23):</strong> ബലിവസ്തുവിന്റെ രക്തം അഹറോന്റെയും പുത്രന്മാരുടെയും <strong>വലത്തുചെവിയുടെ അറ്റം, വലത്തുകൈയിലെ പെരുവിരൽ, വലത്തുകാലിലെ പെരുവിരൽ</strong> എന്നിവയിൽ പുരട്ടണം.</div></li>
-                    <li class="flex items-start"><i class="fas fa-gem text-red-700 mt-1 mr-3"></i> <div><strong>ഊറിം, തുമ്മീം (ലേവ്യ 8:8):</strong> മോശ അഹറോനെ അണിയിച്ച ഉരസ്‌ത്രാണത്തിൽ (Breastpiece) ഊറിം, തുമ്മീം (Urim and Thummim) നിക്ഷേപിച്ചു.</div></li>
-                    <li class="flex items-start"><i class="fas fa-bread-slice text-red-700 mt-1 mr-3"></i> <div><strong>കാഴ്‌ചയപ്പം (ലേവ്യ 24):</strong> ആകെ 12 അപ്പങ്ങൾ. 6 എണ്ണം വീതം 2 നിരകളായി വയ്ക്കണം. മീതെ ശുദ്ധമായ കുന്തുരുക്കം (Frankincense) വെക്കണം.</div></li>
+            <section class="bg-white p-5 sm:p-6 md:p-8 rounded-2xl shadow-xl card hover:shadow-2xl transition-shadow duration-300">
+                <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 section-header border-b pb-2 flex items-center"><i class="fas fa-menorah mr-3 text-red-800 text-xl"></i>പുരോഹിത നിയമങ്ങളും അനുഷ്ഠാനങ്ങളും</h2>
+                <ul class="space-y-4 text-sm sm:text-base text-gray-700">
+                    <li class="flex items-start"><i class="fas fa-fire-flame-curved text-red-700 mt-1 flex-shrink-0 mr-3 w-5 text-center"></i> <div><strong>ബലികളിലെ വിലക്കുകൾ (2:11):</strong> പുളിമാവോ (Leaven) തേനോ ദഹനബലിയായി അർപ്പിക്കരുത്.</div></li>
+                    <li class="flex items-start"><i class="fas fa-cube text-red-700 mt-1 flex-shrink-0 mr-3 w-5 text-center"></i> <div><strong>ഉടമ്പടിയുടെ ഉപ്പ് (2:13):</strong> എല്ലാ ധാന്യബലികളിലും ദൈവവുമായുള്ള ഉടമ്പടിയുടെ അടയാളമായ 'ഉപ്പ്' നിർബന്ധമാണ്.</div></li>
+                    <li class="flex items-start"><i class="fas fa-tint text-red-700 mt-1 flex-shrink-0 mr-3 w-5 text-center"></i> <div><strong>പുരോഹിത അഭിഷേകം (8:23):</strong> രക്തം <strong>വലത്തുചെവിയുടെ അറ്റം, വലത്തുകൈയിലെ പെരുവിരൽ, വലത്തുകാലിലെ പെരുവിരൽ</strong> എന്നിവയിൽ പുരട്ടണം.</div></li>
+                    <li class="flex items-start"><i class="fas fa-gem text-red-700 mt-1 flex-shrink-0 mr-3 w-5 text-center"></i> <div><strong>ഊറിം, തുമ്മീം (8:8):</strong> മോശ അഹറോനെ അണിയിച്ച ഉരസ്‌ത്രാണത്തിൽ ഊറിം, തുമ്മീം നിക്ഷേപിച്ചു.</div></li>
+                    <li class="flex items-start"><i class="fas fa-bread-slice text-red-700 mt-1 flex-shrink-0 mr-3 w-5 text-center"></i> <div><strong>കാഴ്‌ചയപ്പം (24):</strong> 12 അപ്പങ്ങൾ 2 നിരകളായി വയ്ക്കണം. മീതെ കുന്തുരുക്കം വെക്കണം.</div></li>
                 </ul>
             </section>
 
             <!-- Section 2: Clean/Unclean Laws (Very Important for Deep Quiz) -->
-            <section class="bg-white p-6 md:p-8 rounded-2xl shadow-xl card hover:shadow-2xl transition-shadow duration-300">
-                <h2 class="text-2xl font-bold mb-6 section-header border-b pb-2"><i class="fas fa-paw mr-2"></i>ശുദ്ധാശുദ്ധ നിയമങ്ങൾ (ലേവ്യ 11 & 12)</h2>
+            <section class="bg-white p-5 sm:p-6 md:p-8 rounded-2xl shadow-xl card hover:shadow-2xl transition-shadow duration-300">
+                <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 section-header border-b pb-2 flex items-center"><i class="fas fa-paw mr-3 text-red-800 text-xl"></i>ശുദ്ധാശുദ്ധ നിയമങ്ങൾ (അധ്യായം 11 & 12)</h2>
                 
                 <div class="mb-4 bg-red-50 p-4 rounded-lg">
-                    <h3 class="font-bold text-red-900 mb-2">മൃഗങ്ങളും ജലജീവികളും (ലേവ്യ 11)</h3>
-                    <ul class="list-disc pl-5 text-sm space-y-1">
-                        <li><strong>കരയിലെ മൃഗങ്ങൾ:</strong> കുളമ്പു പിളർന്നതും അയവെറക്കുന്നതുമായ മൃഗങ്ങൾ ശുദ്ധമാണ് (രണ്ടും ഒരുമിച്ച് വേണം).</li>
-                        <li><strong>അശുദ്ധ മൃഗങ്ങൾക്ക് ഉദാഹരണം:</strong> ഒട്ടകം, കുഴിമുയൽ, മുയൽ (അയവെറക്കുമെങ്കിലും കുളമ്പു പിളർന്നിട്ടില്ല), പന്നി (കുളമ്പു പിളർന്നതെങ്കിലും അയവെറക്കുന്നില്ല).</li>
-                        <li><strong>ജലജീവികൾ:</strong> ചിറകും ചെതുമ്പലും (Fins and Scales) ഉള്ളവ മാത്രം ഭക്ഷിക്കാം.</li>
+                    <h3 class="font-bold text-red-900 mb-2 text-sm sm:text-base">മൃഗങ്ങളും ജലജീവികളും (ലേവ്യ 11)</h3>
+                    <ul class="list-disc pl-5 text-xs sm:text-sm space-y-1.5 text-gray-700">
+                        <li><strong>കരയിലെ മൃഗങ്ങൾ:</strong> കുളമ്പു പിളർന്നതും അയവെറക്കുന്നതുമായവ മാത്രം ശുദ്ധം.</li>
+                        <li><strong>അശുദ്ധ മൃഗങ്ങൾക്ക് ഉദാഹരണം:</strong> ഒട്ടകം, മുയൽ (അയവെറക്കുമെങ്കിലും കുളമ്പു പിളർന്നിട്ടില്ല), പന്നി (കുളമ്പു പിളർന്നതെങ്കിലും അയവെറക്കുന്നില്ല).</li>
+                        <li><strong>ജലജീവികൾ:</strong> ചിറകും ചെതുമ്പലും (Fins & Scales) ഉള്ളവ മാത്രം ഭക്ഷിക്കാം.</li>
                     </ul>
                 </div>
 
                 <div class="bg-blue-50 p-4 rounded-lg">
-                    <h3 class="font-bold text-blue-900 mb-2">പ്രസവാനന്തര ശുദ്ധീകരണം (ലേവ്യ 12)</h3>
-                    <ul class="list-disc pl-5 text-sm space-y-1">
-                        <li><strong>ആൺകുട്ടി:</strong> 7 ദിവസം അശുദ്ധി + 33 ദിവസം രക്തശുദ്ധീകരണം = <strong>ആകെ 40 ദിവസം</strong>. (8-ാം ദിവസം പരിച്ഛേദനം).</li>
-                        <li><strong>പെൺകുട്ടി:</strong> 14 ദിവസം അശുദ്ധി + 66 ദിവസം രക്തശുദ്ധീകരണം = <strong>ആകെ 80 ദിവസം</strong>.</li>
-                        <li><em>(ദരിദ്രർക്ക് ആട്ടിൻകുട്ടിക്ക് പകരം രണ്ടു കുറുപ്രാവുകളെയോ രണ്ടു പ്രാവിൻകുഞ്ഞുകളെയോ നൽകാം - ലൂക്കാ 2:24-ൽ മറിയം നൽകുന്നത് ഇതാണ്).</em></li>
+                    <h3 class="font-bold text-blue-900 mb-2 text-sm sm:text-base">പ്രസവാനന്തര ശുദ്ധീകരണം (ലേവ്യ 12)</h3>
+                    <ul class="list-disc pl-5 text-xs sm:text-sm space-y-1.5 text-gray-700">
+                        <li><strong>ആൺകുട്ടി:</strong> 7 ദിവസം + 33 ദിവസം = <strong>ആകെ 40 ദിവസം</strong>.</li>
+                        <li><strong>പെൺകുട്ടി:</strong> 14 ദിവസം + 66 ദിവസം = <strong>ആകെ 80 ദിവസം</strong>.</li>
+                        <li class="italic text-gray-600">ദരിദ്രർക്ക് ആട്ടിൻകുട്ടിക്ക് പകരം രണ്ടു കുറുപ്രാവുകളെയോ പ്രാവിൻകുഞ്ഞുകളെയോ നൽകാം (ലൂക്കാ 2:24-ൽ മറിയം നൽകുന്നത് ഇതാണ്).</li>
                     </ul>
                 </div>
             </section>
@@ -91,160 +97,172 @@
         </div>
 
         <!-- Section 3: Hardcore Trivia / Small Details -->
-        <section class="bg-white p-6 md:p-8 rounded-2xl shadow-xl card overflow-hidden">
-            <h2 class="text-2xl font-bold mb-6 section-header border-b pb-2"><i class="fas fa-microscope mr-2"></i>സൂക്ഷ്മ വിവരങ്ങൾ (Priests' Special)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-yellow-500">
-                    <h4 class="font-bold text-gray-800 mb-2">കുഷ്ഠരോഗിയുടെ ശുദ്ധീകരണം (ലേവ്യ 14:4)</h4>
-                    <p class="text-sm text-gray-600">പുരോഹിതൻ ജീവനുള്ള രണ്ട് ശുദ്ധപക്ഷികൾ, <strong>ദേവദാരു, ചുവപ്പുനൂൽ, ഈസോപ്പ്</strong> എന്നിവ കൊണ്ടുവരാൻ കൽപിക്കണം.</p>
+        <section class="bg-white p-5 sm:p-6 md:p-8 rounded-2xl shadow-xl card overflow-hidden">
+            <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 section-header border-b pb-2 flex items-center"><i class="fas fa-microscope mr-3 text-red-800 text-xl"></i>സൂക്ഷ്മ വിവരങ്ങൾ (Priests' Special)</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <div class="bg-gray-50 p-4 sm:p-5 rounded-xl border-l-4 border-yellow-500">
+                    <h4 class="font-bold text-gray-800 mb-1 sm:mb-2 text-sm sm:text-base">കുഷ്ഠരോഗിയുടെ ശുദ്ധീകരണം (14:4)</h4>
+                    <p class="text-xs sm:text-sm text-gray-600">ജീവനുള്ള രണ്ട് ശുദ്ധപക്ഷികൾ, <strong>ദേവദാരു, ചുവപ്പുനൂൽ, ഈസോപ്പ്</strong> എന്നിവ കൊണ്ടുവരണം.</p>
                 </div>
-                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-red-500">
-                    <h4 class="font-bold text-gray-800 mb-2">ദൈവദൂഷകന്റെ മാതാവ് (ലേവ്യ 24:11)</h4>
-                    <p class="text-sm text-gray-600">കർത്താവിന്റെ നാമത്തെ ദുഷിച്ചതിന് കല്ലെറിഞ്ഞു കൊല്ലപ്പെട്ടവന്റെ അമ്മയുടെ പേര്: <strong>ശലോമിത്ത്</strong> (ദാൻ ഗോത്രത്തിലെ ദിബ്രിമകൾ).</p>
+                <div class="bg-gray-50 p-4 sm:p-5 rounded-xl border-l-4 border-red-500">
+                    <h4 class="font-bold text-gray-800 mb-1 sm:mb-2 text-sm sm:text-base">ദൈവദൂഷകന്റെ മാതാവ് (24:11)</h4>
+                    <p class="text-xs sm:text-sm text-gray-600">കർത്താവിന്റെ നാമത്തെ ദുഷിച്ചവന്റെ അമ്മയുടെ പേര്: <strong>ശലോമിത്ത്</strong> (ദിബ്രിമകൾ).</p>
                 </div>
-                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-blue-500">
-                    <h4 class="font-bold text-gray-800 mb-2">ശാപവും അനുഗ്രഹവും (ലേവ്യ 26)</h4>
-                    <p class="text-sm text-gray-600">ലേവ്യഗ്രന്ഥത്തിൽ കല്പനകൾ അനുസരിക്കുന്നവർക്കുള്ള അനുഗ്രഹങ്ങളും, ലംഘിക്കുന്നവർക്കുള്ള ഭയാനകമായ ശിക്ഷകളും വിവരിച്ചിരിക്കുന്നത് <strong>26-ാം അധ്യായത്തിലാണ്</strong>.</p>
+                <div class="bg-gray-50 p-4 sm:p-5 rounded-xl border-l-4 border-blue-500">
+                    <h4 class="font-bold text-gray-800 mb-1 sm:mb-2 text-sm sm:text-base">ശാപവും അനുഗ്രഹവും (അധ്യായം 26)</h4>
+                    <p class="text-xs sm:text-sm text-gray-600">അനുസരണത്തിനുള്ള അനുഗ്രഹങ്ങളും ലംഘനത്തിനുള്ള ശിക്ഷകളും <strong>26-ാം അധ്യായത്തിലാണ്</strong>.</p>
                 </div>
-                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-green-500">
-                    <h4 class="font-bold text-gray-800 mb-2">പുരോഹിതന്റെ ശാരീരിക യോഗ്യത (ലേവ്യ 21:18)</h4>
-                    <p class="text-sm text-gray-600">അംഗവൈകല്യമുള്ളവന് (കുരുടൻ, മുടന്തൻ, മുഖവൈരൂപ്യം, കൈകാലുകൾക്ക് നീളം കൂടിയവനോ കുറഞ്ഞവനോ) ബലിയർപ്പിക്കാൻ അവകാശമില്ല.</p>
+                <div class="bg-gray-50 p-4 sm:p-5 rounded-xl border-l-4 border-green-500">
+                    <h4 class="font-bold text-gray-800 mb-1 sm:mb-2 text-sm sm:text-base">പുരോഹിതന്റെ ശാരീരിക യോഗ്യത (21:18)</h4>
+                    <p class="text-xs sm:text-sm text-gray-600">അംഗവൈകല്യമുള്ളവന് (കുരുടൻ, മുടന്തൻ, മുഖവൈരൂപ്യം) ബലിയർപ്പിക്കാൻ അവകാശമില്ല.</p>
                 </div>
-                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-purple-500">
-                    <h4 class="font-bold text-gray-800 mb-2">അളവുകളും ദശാംശവും (ലേവ്യ 27:25, 31)</h4>
-                    <p class="text-sm text-gray-600">1 ഷെക്കൽ = <strong>20 ഗേര</strong>. ദശാംശത്തിൽനിന്ന് ഒരു ഭാഗം വീണ്ടെടുക്കാൻ ആഗ്രഹിച്ചാൽ <strong>അഞ്ചിലൊന്നു (1/5)</strong> കൂടി കൊടുക്കണം.</p>
+                <div class="bg-gray-50 p-4 sm:p-5 rounded-xl border-l-4 border-purple-500">
+                    <h4 class="font-bold text-gray-800 mb-1 sm:mb-2 text-sm sm:text-base">അളവുകളും ദശാംശവും (27:25)</h4>
+                    <p class="text-xs sm:text-sm text-gray-600">1 ഷെക്കൽ = <strong>20 ഗേര</strong>. ദശാംശം വീണ്ടെടുക്കാൻ <strong>അഞ്ചിലൊന്നു (1/5)</strong> കൂടി കൊടുക്കണം.</p>
                 </div>
-                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-orange-500">
-                    <h4 class="font-bold text-gray-800 mb-2">നിരുപാധികം സമർപ്പിച്ചവ (ലേവ്യ 27:28)</h4>
-                    <p class="text-sm text-gray-600">മനുഷ്യനോ മൃഗമോ നിലമോ കർത്താവിനു നിരുപാധികം സമർപ്പിച്ചവ <strong>വിൽക്കുകയോ വീണ്ടെടുക്കുകയോ അരുത്</strong>. അവ ഏറ്റവും വിശുദ്ധമാണ്.</p>
+                <div class="bg-gray-50 p-4 sm:p-5 rounded-xl border-l-4 border-orange-500">
+                    <h4 class="font-bold text-gray-800 mb-1 sm:mb-2 text-sm sm:text-base">നിരുപാധികം സമർപ്പിച്ചവ (27:28)</h4>
+                    <p class="text-xs sm:text-sm text-gray-600">നിരുപാധികം സമർപ്പിച്ചവ <strong>വിൽക്കുകയോ വീണ്ടെടുക്കുകയോ അരുത്</strong>. അവ ഏറ്റവും വിശുദ്ധമാണ്.</p>
                 </div>
             </div>
         </section>
 
         <!-- Section 4: Advanced Cross References Table -->
-        <section class="bg-white p-6 md:p-8 rounded-2xl shadow-xl card overflow-x-auto">
-            <h2 class="text-2xl font-bold mb-6 section-header border-b pb-2"><i class="fas fa-project-diagram mr-2"></i>വിപുലീകരിച്ച പുതിയ നിയമ ക്രോസ്സ് റെഫറൻസുകൾ</h2>
-            <table class="w-full text-left border-collapse min-w-[600px]">
-                <thead>
-                    <tr class="bg-gray-800 text-white">
-                        <th class="p-4 rounded-tl-lg">വിഷയം / സംഭവം</th>
-                        <th class="p-4">ലേവ്യഗ്രന്ഥം</th>
-                        <th class="p-4 rounded-tr-lg">പുതിയ നിയമം / മറ്റു ഭാഗങ്ങൾ</th>
-                    </tr>
-                </thead>
-                <tbody class="text-md divide-y divide-gray-200">
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="p-4 font-semibold text-red-900">പരിശുദ്ധരായിരിക്കുക</td>
-                        <td class="p-4 text-gray-700">11:44, 19:2</td>
-                        <td class="p-4 text-blue-700">1 പത്രോസ് 1:16</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 transition-colors bg-gray-50">
-                        <td class="p-4 font-semibold text-red-900">അയൽക്കാരനെ സ്നേഹിക്കുക</td>
-                        <td class="p-4 text-gray-700">19:18</td>
-                        <td class="p-4 text-blue-700">മത്തായി 22:39, യാക്കോബ് 2:8 (രാജകീയ നിയമം)</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="p-4 font-semibold text-red-900">ദരിദ്രർക്കുള്ള പ്രസവാനന്തര ബലി</td>
-                        <td class="p-4 text-gray-700">12:8 (രണ്ട് പ്രാവുകൾ)</td>
-                        <td class="p-4 text-blue-700">ലൂക്കാ 2:24 (മറിയത്തിന്റെ ശുദ്ധീകരണം)</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 transition-colors bg-gray-50">
-                        <td class="p-4 font-semibold text-red-900">കണ്ണിനു പകരം കണ്ണ്, പല്ലിനു പകരം പല്ല്</td>
-                        <td class="p-4 text-gray-700">24:20</td>
-                        <td class="p-4 text-blue-700">മത്തായി 5:38 (മലയിലെ പ്രസംഗത്തിൽ തിരുത്തുന്നു)</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="p-4 font-semibold text-red-900">മഹാപുരോഹിതൻ രക്തവുമായി പ്രവേശിക്കുന്നു</td>
-                        <td class="p-4 text-gray-700">16:15 (പാപപരിഹാരദിനം)</td>
-                        <td class="p-4 text-blue-700">ഹെബ്രായർ 9:11-12 (ക്രിസ്തു സ്വന്തം രക്തവുമായി പ്രവേശിച്ചു)</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 transition-colors bg-gray-50">
-                        <td class="p-4 font-semibold text-red-900">മാംസത്തിന്റെ ജീവനിരിക്കുന്നത് രക്തത്തിലാണ്</td>
-                        <td class="p-4 text-gray-700">17:11</td>
-                        <td class="p-4 text-blue-700">ഹെബ്രായർ 9:22 (രക്തം ചിന്താതെ പാപമോചനമില്ല)</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="p-4 font-semibold text-red-900">അപ്പനെയും അമ്മയെയും ശപിക്കുന്നവൻ</td>
-                        <td class="p-4 text-gray-700">20:9</td>
-                        <td class="p-4 text-blue-700">മത്തായി 15:4 (ഫരിസേയരെ ശാസിക്കുമ്പോൾ)</td>
-                    </tr>
-                    <tr class="hover:bg-gray-50 transition-colors bg-gray-50">
-                        <td class="p-4 font-semibold text-red-900">കൂടാരത്തിരുനാൾ (Feast of Booths)</td>
-                        <td class="p-4 text-gray-700">23:34</td>
-                        <td class="p-4 text-blue-700">യോഹന്നാൻ 7:2 (യേശു കൂടാരത്തിരുനാളിൽ പങ്കെടുക്കുന്നു)</td>
-                    </tr>
-                </tbody>
-            </table>
+        <section class="bg-white p-5 sm:p-6 md:p-8 rounded-2xl shadow-xl card">
+            <h2 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 section-header border-b pb-2 flex items-center"><i class="fas fa-project-diagram mr-3 text-red-800 text-xl"></i>പുതിയ നിയമ ക്രോസ്സ് റെഫറൻസുകൾ</h2>
+            <div class="overflow-x-auto rounded-lg shadow-sm border border-gray-200">
+                <table class="w-full text-left border-collapse min-w-[500px]">
+                    <thead>
+                        <tr class="bg-gray-800 text-white text-sm sm:text-base">
+                            <th class="p-3 sm:p-4 whitespace-nowrap">വിഷയം / സംഭവം</th>
+                            <th class="p-3 sm:p-4 whitespace-nowrap">ലേവ്യഗ്രന്ഥം</th>
+                            <th class="p-3 sm:p-4">പുതിയ നിയമം / മറ്റു ഭാഗങ്ങൾ</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-xs sm:text-sm md:text-base divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="p-3 sm:p-4 font-semibold text-red-900">പരിശുദ്ധരായിരിക്കുക</td>
+                            <td class="p-3 sm:p-4 text-gray-700 whitespace-nowrap">11:44, 19:2</td>
+                            <td class="p-3 sm:p-4 text-blue-700">1 പത്രോസ് 1:16</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors bg-gray-50">
+                            <td class="p-3 sm:p-4 font-semibold text-red-900">അയൽക്കാരനെ സ്നേഹിക്കുക</td>
+                            <td class="p-3 sm:p-4 text-gray-700 whitespace-nowrap">19:18</td>
+                            <td class="p-3 sm:p-4 text-blue-700">മത്തായി 22:39, യാക്കോബ് 2:8</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="p-3 sm:p-4 font-semibold text-red-900">ദരിദ്രർക്കുള്ള പ്രസവാനന്തര ബലി</td>
+                            <td class="p-3 sm:p-4 text-gray-700 whitespace-nowrap">12:8</td>
+                            <td class="p-3 sm:p-4 text-blue-700">ലൂക്കാ 2:24 (മറിയത്തിന്റെ ശുദ്ധീകരണം)</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors bg-gray-50">
+                            <td class="p-3 sm:p-4 font-semibold text-red-900">കണ്ണിനു പകരം കണ്ണ്</td>
+                            <td class="p-3 sm:p-4 text-gray-700 whitespace-nowrap">24:20</td>
+                            <td class="p-3 sm:p-4 text-blue-700">മത്തായി 5:38</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="p-3 sm:p-4 font-semibold text-red-900">മഹാപുരോഹിതന്റെ പ്രവേശനം</td>
+                            <td class="p-3 sm:p-4 text-gray-700 whitespace-nowrap">16:15</td>
+                            <td class="p-3 sm:p-4 text-blue-700">ഹെബ്രായർ 9:11-12</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors bg-gray-50">
+                            <td class="p-3 sm:p-4 font-semibold text-red-900">ജീവനിരിക്കുന്നത് രക്തത്തിലാണ്</td>
+                            <td class="p-3 sm:p-4 text-gray-700 whitespace-nowrap">17:11</td>
+                            <td class="p-3 sm:p-4 text-blue-700">ഹെബ്രായർ 9:22</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="p-3 sm:p-4 font-semibold text-red-900">അപ്പനെയും അമ്മയെയും ശപിക്കുന്നവൻ</td>
+                            <td class="p-3 sm:p-4 text-gray-700 whitespace-nowrap">20:9</td>
+                            <td class="p-3 sm:p-4 text-blue-700">മത്തായി 15:4</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <!-- Section 5: Feasts & Valuations (Compact) -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <section class="bg-white p-6 rounded-2xl shadow-xl card">
-                <h2 class="text-2xl font-bold mb-4 section-header"><i class="fas fa-calendar-alt mr-2"></i>പ്രധാന തിരുനാളുകൾ (അധ്യായം 23)</h2>
-                <div class="space-y-3 text-sm">
-                    <div class="flex justify-between border-b pb-1"><span class="font-bold text-red-900">സാബത്ത്</span> <span>ഏഴാം ദിവസം</span></div>
-                    <div class="flex justify-between border-b pb-1"><span class="font-bold text-red-900">പെസഹാ</span> <span>ഒന്നാം മാസം 14-ാം തീയതി സന്ധ്യയ്ക്ക്</span></div>
-                    <div class="flex justify-between border-b pb-1"><span class="font-bold text-red-900">പുളിപ്പില്ലാത്ത അപ്പം</span> <span>ഒന്നാം മാസം 15 മുതൽ 7 ദിവസം</span></div>
-                    <div class="flex justify-between border-b pb-1"><span class="font-bold text-red-900">പെന്തക്കുസ്താ (വാരങ്ങൾ)</span> <span>ആദ്യഫലസമർപ്പണം കഴിഞ്ഞ് 50-ാം ദിവസം</span></div>
-                    <div class="flex justify-between border-b pb-1"><span class="font-bold text-red-900">കാഹളധ്വനി</span> <span>ഏഴാം മാസം ഒന്നാം തീയതി</span></div>
-                    <div class="flex justify-between border-b pb-1"><span class="font-bold text-red-900">പാപപരിഹാരദിനം</span> <span>ഏഴാം മാസം 10-ാം തീയതി (ഉപവാസം)</span></div>
-                    <div class="flex justify-between"><span class="font-bold text-red-900">കൂടാരത്തിരുനാൾ</span> <span>ഏഴാം മാസം 15 മുതൽ 7 ദിവസം</span></div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+            <!-- Feasts -->
+            <section class="bg-white p-5 sm:p-6 rounded-2xl shadow-xl card">
+                <h2 class="text-xl sm:text-2xl font-bold mb-4 section-header flex items-center"><i class="fas fa-calendar-alt mr-3 text-red-800"></i>പ്രധാന തിരുനാളുകൾ (23)</h2>
+                <div class="space-y-3 text-xs sm:text-sm text-gray-700">
+                    <div class="flex flex-col sm:flex-row sm:justify-between border-b pb-2 sm:pb-1 gap-1"><span class="font-bold text-red-900">സാബത്ത്</span> <span>ഏഴാം ദിവസം</span></div>
+                    <div class="flex flex-col sm:flex-row sm:justify-between border-b pb-2 sm:pb-1 gap-1"><span class="font-bold text-red-900">പെസഹാ</span> <span>ഒന്നാം മാസം 14 സന്ധ്യയ്ക്ക്</span></div>
+                    <div class="flex flex-col sm:flex-row sm:justify-between border-b pb-2 sm:pb-1 gap-1"><span class="font-bold text-red-900">പുളിപ്പില്ലാത്ത അപ്പം</span> <span>ഒന്നാം മാസം 15 മുതൽ 7 ദിവസം</span></div>
+                    <div class="flex flex-col sm:flex-row sm:justify-between border-b pb-2 sm:pb-1 gap-1"><span class="font-bold text-red-900">പെന്തക്കുസ്താ (വാരങ്ങൾ)</span> <span>ആദ്യഫലം സമർപ്പിച്ച് 50-ാം ദിവസം</span></div>
+                    <div class="flex flex-col sm:flex-row sm:justify-between border-b pb-2 sm:pb-1 gap-1"><span class="font-bold text-red-900">കാഹളധ്വനി</span> <span>ഏഴാം മാസം 1-ാം തീയതി</span></div>
+                    <div class="flex flex-col sm:flex-row sm:justify-between border-b pb-2 sm:pb-1 gap-1"><span class="font-bold text-red-900">പാപപരിഹാരദിനം</span> <span>ഏഴാം മാസം 10-ാം തീയതി (ഉപവാസം)</span></div>
+                    <div class="flex flex-col sm:flex-row sm:justify-between gap-1"><span class="font-bold text-red-900">കൂടാരത്തിരുനാൾ</span> <span>ഏഴാം മാസം 15 മുതൽ 7 ദിവസം</span></div>
                 </div>
             </section>
 
-            <section class="bg-white p-6 rounded-2xl shadow-xl card">
-                <h2 class="text-2xl font-bold mb-4 section-header"><i class="fas fa-coins mr-2"></i>നേർച്ചകൾ: പ്രായമനുസരിച്ചുള്ള മൂല്യനിർണ്ണയം (അധ്യായം 27)</h2>
-                <div class="space-y-3 text-sm">
-                    <div class="flex justify-between items-center bg-gray-50 p-2 rounded">
-                        <span class="font-bold text-gray-700">20 മുതൽ 60 വയസ്സുവരെ:</span> 
+            <!-- Valuations -->
+            <section class="bg-white p-5 sm:p-6 rounded-2xl shadow-xl card">
+                <h2 class="text-xl sm:text-2xl font-bold mb-4 section-header flex items-center"><i class="fas fa-coins mr-3 text-red-800"></i>നേർച്ചകൾ: മൂല്യനിർണ്ണയം (27)</h2>
+                <div class="space-y-3 text-xs sm:text-sm text-gray-700">
+                    <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center bg-gray-50 p-3 sm:p-2 rounded gap-1">
+                        <span class="font-bold">20 മുതൽ 60 വയസ്സുവരെ:</span> 
                         <span>പുരുഷൻ: <strong>50 ഷെക്കൽ</strong> | സ്ത്രീ: <strong>30 ഷെക്കൽ</strong></span>
                     </div>
-                    <div class="flex justify-between items-center bg-gray-50 p-2 rounded">
-                        <span class="font-bold text-gray-700">5 മുതൽ 20 വയസ്സുവരെ:</span> 
+                    <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center bg-gray-50 p-3 sm:p-2 rounded gap-1">
+                        <span class="font-bold">5 മുതൽ 20 വയസ്സുവരെ:</span> 
                         <span>പുരുഷൻ: <strong>20 ഷെക്കൽ</strong> | സ്ത്രീ: <strong>10 ഷെക്കൽ</strong></span>
                     </div>
-                    <div class="flex justify-between items-center bg-gray-50 p-2 rounded">
-                        <span class="font-bold text-gray-700">1 മാസം മുതൽ 5 വയസ്സുവരെ:</span> 
+                    <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center bg-gray-50 p-3 sm:p-2 rounded gap-1">
+                        <span class="font-bold">1 മാസം മുതൽ 5 വയസ്സുവരെ:</span> 
                         <span>പുരുഷൻ: <strong>5 ഷെക്കൽ</strong> | സ്ത്രീ: <strong>3 ഷെക്കൽ</strong></span>
                     </div>
-                    <div class="flex justify-between items-center bg-gray-50 p-2 rounded">
-                        <span class="font-bold text-gray-700">60 വയസ്സിനു മുകളിൽ:</span> 
+                    <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center bg-gray-50 p-3 sm:p-2 rounded gap-1">
+                        <span class="font-bold">60 വയസ്സിനു മുകളിൽ:</span> 
                         <span>പുരുഷൻ: <strong>15 ഷെക്കൽ</strong> | സ്ത്രീ: <strong>10 ഷെക്കൽ</strong></span>
                     </div>
-                    <div class="mt-2 text-xs text-red-600 font-semibold italic">മൃഗങ്ങളുടെ കടിഞ്ഞൂൽ സന്തതികളെ ആരും വിശുദ്ധീകരിക്കേണ്ടതില്ല. അവ കർത്താവിനുള്ളതാണ് (27:26).</div>
+                    <div class="mt-3 text-xs text-red-600 font-semibold italic border-l-2 border-red-500 pl-2">
+                        മൃഗങ്ങളുടെ കടിഞ്ഞൂൽ സന്തതികളെ ആരും വിശുദ്ധീകരിക്കേണ്ടതില്ല. അവ കർത്താവിനുള്ളതാണ് (27:26).
+                    </div>
                 </div>
             </section>
         </div>
 
         <!-- Section 6: Hardcore Interactive Fill in the Blanks -->
-        <section class="bg-gray-900 text-white p-6 md:p-8 rounded-2xl shadow-xl border-t-4 border-yellow-500 relative overflow-hidden">
-            <div class="absolute right-0 top-0 opacity-10 text-9xl"><i class="fas fa-question"></i></div>
-            <h2 class="text-2xl md:text-3xl font-bold mb-2 text-yellow-400 relative z-10"><i class="fas fa-bolt mr-2"></i>റാപ്പിഡ് ഫയർ: കഠിന ചോദ്യങ്ങൾ</h2>
-            <p class="text-sm text-gray-400 mb-8 relative z-10">ഉത്തരം കാണുന്നതിനായി കറുത്ത വരകൾക്ക് മുകളിലൂടെ മൗസ് കൊണ്ടുപോവുക (Hover to reveal).</p>
+        <section class="bg-gray-900 text-white p-5 sm:p-6 md:p-8 rounded-2xl shadow-xl border-t-4 border-yellow-500 relative overflow-hidden">
+            <div class="absolute right-0 top-0 opacity-10 text-7xl sm:text-9xl"><i class="fas fa-question"></i></div>
+            <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-2 text-yellow-400 relative z-10 flex items-center"><i class="fas fa-bolt mr-3 text-yellow-500"></i>റാപ്പിഡ് ഫയർ: കഠിന ചോദ്യങ്ങൾ</h2>
+            <p class="text-xs sm:text-sm text-gray-300 mb-6 sm:mb-8 relative z-10 bg-gray-800 inline-block px-3 py-1 rounded-full border border-gray-700">
+                <i class="fas fa-hand-pointer mr-2"></i>ഉത്തരം കാണുന്നതിനായി കറുത്ത വരകളിൽ <strong>തൊടുക (Tap)</strong> അല്ലെങ്കിൽ <strong>മൗസ് വെക്കുക (Hover)</strong>.
+            </p>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-lg relative z-10">
-                <p>1. അഹറോന്റെ പുത്രന്മാരായ നാദാബും അബീഹുവും സന്നിധിയിൽ അർപ്പിച്ച കർത്താവ് കൽപിക്കാത്ത അഗ്നി ഏത് പേരിൽ അറിയപ്പെടുന്നു? <br><span class="reveal-answer px-3 py-1 rounded font-bold mt-2 inline-block text-yellow-300" title="ഉത്തരം: അന്യമായ അഗ്നി">അന്യമായ അഗ്നി (10:1)</span></p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-sm sm:text-base md:text-lg relative z-10 leading-relaxed">
+                <p>1. അഹറോന്റെ പുത്രന്മാരായ നാദാബും അബീഹുവും സന്നിധിയിൽ അർപ്പിച്ച കർത്താവ് കൽപിക്കാത്ത അഗ്നി ഏത് പേരിൽ അറിയപ്പെടുന്നു? <br>
+                    <span class="reveal-answer px-3 py-1.5 rounded font-bold mt-2 inline-block shadow-sm" onclick="this.classList.toggle('revealed')">അന്യമായ അഗ്നി (10:1)</span>
+                </p>
                 
-                <p>2. "നിന്റെ ജനത്തിന്റെ ഇടയില്‍ <span class="reveal-answer px-3 py-1 rounded font-bold mx-1 text-yellow-300" title="ഉത്തരം: ഏഷണിക്കാരനായി">ഏഷണിക്കാരനായി</span> നടക്കരുത്." (19:16)</p>
+                <p>2. "നിന്റെ ജനത്തിന്റെ ഇടയില്‍ <span class="reveal-answer px-3 py-1 rounded font-bold mx-1" onclick="this.classList.toggle('revealed')">ഏഷണിക്കാരനായി</span> നടക്കരുത്." (19:16)</p>
                 
-                <p>3. പാപപരിഹാരദിനത്തിൽ ജനങ്ങളുടെ പാപങ്ങളെല്ലാം ചുമത്തി മരുഭൂമിയിലേക്ക് അയക്കുന്ന കോലാട്ടുകൊറ്റൻ അറിയപ്പെടുന്ന പേര്? <br><span class="reveal-answer px-3 py-1 rounded font-bold mt-2 inline-block text-yellow-300" title="ഉത്തരം: അസാസെൽ (Azazel)">അസാസെൽ (16:8)</span></p>
+                <p>3. പാപപരിഹാരദിനത്തിൽ ജനങ്ങളുടെ പാപങ്ങളെല്ലാം ചുമത്തി മരുഭൂമിയിലേക്ക് അയക്കുന്ന കോലാട്ടുകൊറ്റൻ അറിയപ്പെടുന്ന പേര്? <br>
+                    <span class="reveal-answer px-3 py-1.5 rounded font-bold mt-2 inline-block shadow-sm" onclick="this.classList.toggle('revealed')">അസാസെൽ (16:8)</span>
+                </p>
                 
-                <p>4. "എന്റെ നിയമങ്ങൾ പാലിക്കുകയും എന്റെ കല്പനകൾ അനുസരിക്കുകയും ചെയ്യുന്നവൻ അവയിലൂടെ <span class="reveal-answer px-3 py-1 rounded font-bold mx-1 text-yellow-300" title="ഉത്തരം: ജീവിക്കും">ജീവിക്കും</span>." (18:5)</p>
+                <p>4. "എന്റെ നിയമങ്ങൾ പാലിക്കുകയും എന്റെ കല്പനകൾ അനുസരിക്കുകയും ചെയ്യുന്നവൻ അവയിലൂടെ <span class="reveal-answer px-3 py-1 rounded font-bold mx-1" onclick="this.classList.toggle('revealed')">ജീവിക്കും</span>." (18:5)</p>
                 
-                <p>5. ഏത് വർഷത്തിലാണ് അടിമകൾക്ക് മോചനം നൽകുകയും വിറ്റ ഭൂമി ഉടമസ്ഥർക്ക് തിരികെ ലഭിക്കുകയും ചെയ്യുന്ന ജൂബിലിവത്സരം ആഘോഷിക്കുന്നത്? <br><span class="reveal-answer px-3 py-1 rounded font-bold mt-2 inline-block text-yellow-300" title="ഉത്തരം: അൻപതാം വർഷം">അൻപതാം വർഷം (25:10)</span></p>
+                <p>5. ഏത് വർഷത്തിലാണ് അടിമകൾക്ക് മോചനം നൽകുകയും വിറ്റ ഭൂമി ഉടമസ്ഥർക്ക് തിരികെ ലഭിക്കുകയും ചെയ്യുന്ന ജൂബിലിവത്സരം ആഘോഷിക്കുന്നത്? <br>
+                    <span class="reveal-answer px-3 py-1.5 rounded font-bold mt-2 inline-block shadow-sm" onclick="this.classList.toggle('revealed')">അൻപതാം വർഷം (25:10)</span>
+                </p>
 
-                <p>6. "നരച്ചമുടിക്കാരന്റെ മുമ്പില്‍ <span class="reveal-answer px-3 py-1 rounded font-bold mx-1 text-yellow-300" title="ഉത്തരം: എഴുന്നേറ്റു നില്‍ക്കണം">എഴുന്നേറ്റു നില്‍ക്കണം</span>; വയോധികനെ ബഹുമാനിക്കണം." (19:32)</p>
+                <p>6. "നരച്ചമുടിക്കാരന്റെ മുമ്പില്‍ <span class="reveal-answer px-3 py-1 rounded font-bold mx-1" onclick="this.classList.toggle('revealed')">എഴുന്നേറ്റു നില്‍ക്കണം</span>; വയോധികനെ ബഹുമാനിക്കണം." (19:32)</p>
 
-                <p>7. ഒരുவன் തന്റെ ദശാംശത്തിൽനിന്ന് ഒരു ഭാഗം വീണ്ടെടുക്കാൻ ആഗ്രഹിച്ചാൽ, ആ മൂല്യത്തോടൊപ്പം എത്ര ഭാഗം കൂടി കർത്താവിന് കൊടുക്കണം? <br><span class="reveal-answer px-3 py-1 rounded font-bold mt-2 inline-block text-yellow-300" title="ഉത്തരം: അഞ്ചിലൊന്നു കൂടി (1/5)">അഞ്ചിലൊന്നു കൂടി (27:31)</span></p>
+                <p>7. ഒരുவன் തന്റെ ദശാംശത്തിൽനിന്ന് ഒരു ഭാഗം വീണ്ടെടുക്കാൻ ആഗ്രഹിച്ചാൽ, ആ മൂല്യത്തോടൊപ്പം എത്ര ഭാഗം കൂടി കർത്താവിന് കൊടുക്കണം? <br>
+                    <span class="reveal-answer px-3 py-1.5 rounded font-bold mt-2 inline-block shadow-sm" onclick="this.classList.toggle('revealed')">അഞ്ചിലൊന്നു കൂടി (27:31)</span>
+                </p>
 
-                <p>8. "നിന്റെ അയല്‍ക്കാരനെ <span class="reveal-answer px-3 py-1 rounded font-bold mx-1 text-yellow-300" title="ഉത്തരം: നിന്നെപ്പോലെതന്നെ">നിന്നെപ്പോലെതന്നെ</span> സ്‌നേഹിക്കണം." (19:18)</p>
+                <p>8. "നിന്റെ അയല്‍ക്കാരനെ <span class="reveal-answer px-3 py-1 rounded font-bold mx-1" onclick="this.classList.toggle('revealed')">നിന്നെപ്പോലെതന്നെ</span> സ്‌നേഹിക്കണം." (19:18)</p>
             </div>
         </section>
 
     </div>
 
-    <footer class="text-center text-gray-500 mt-12 mb-8 text-sm font-medium">
-        തയ്യാറാക്കിയത്: POC മലയാളം ബൈബിൾ പരിഭാഷയെ പൂർണ്ണമായും അടിസ്ഥാനമാക്കി.
+    <footer class="text-center text-gray-500 mt-10 sm:mt-12 mb-6 sm:mb-8 text-xs sm:text-sm font-medium px-4">
+        തയ്യാറാക്കിയത്: POC മലയാളം ബൈബിൾ പരിഭാഷയെ പൂർണ്ണമായും അടിസ്ഥാനമാക്കി.<br>
+        <span class="text-gray-400 mt-1 inline-block">Best viewed on Mobile & Desktop</span>
     </footer>
 
 </body>
